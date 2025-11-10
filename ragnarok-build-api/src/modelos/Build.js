@@ -1,3 +1,5 @@
+//Schema do Mongoose para representar uma build de personagem no Ragnarok Online
+
 const mongoose = require('mongoose');
 
 const buildSchema = new mongoose.Schema({
@@ -26,7 +28,7 @@ const buildSchema = new mongoose.Schema({
         crt: { type: Number, default: 0 },
     },
 
-    // Equipamentos da build
+    // Equipamentos da build //UPDATE futuro para o projeto 
     equipment: {
         weapon: { type: Number },
         shield: { type: Number },
@@ -40,7 +42,7 @@ const buildSchema = new mongoose.Schema({
         accessory2: { type: Number },
     },
 
-    // Criador da build (agora opcional)
+    // Criador da build (opcional)
     author: {
         createdBy: { type: String, default: 'anonymous' }
     }

@@ -1,3 +1,5 @@
+//Criação da conexão com o banco de dados MongoDB usando Mongoose
+
 require('dotenv').config();
 const mongoose = require('mongoose');
 

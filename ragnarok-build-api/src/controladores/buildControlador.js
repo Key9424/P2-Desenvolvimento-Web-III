@@ -1,3 +1,5 @@
+//Criação dos controladores para gerenciar as operações CRUD das builds
+
 const Build = require('../modelos/Build.js');
 
 // READ (GET) - Todas as builds
@@ -27,24 +29,21 @@ exports.getBuildById = async (req, res) => {
 exports.createBuild = async (req, res) => {
     const { name, description, job, level, jobLevel, stats, talent, equipment } = req.body;
 
-    // Validação simples
+    // Validação simples dos campos obrigatórios
     if (!name || !job) {
         return res.status(400).json({ error: 'Campos name e job são obrigatórios.' });
     }
 
     try {
         const build = new Build({
-            name, 
-            description, 
-            job, 
-            level, 
-            jobLevel, 
-            stats, 
-            talent, 
-            equipment,
-            author: { 
-                createdBy: 'anonymous' // Usuário anônimo
-            }
+            name,
+            description,
+            job,
+            level,
+            jobLevel,
+            stats,
+            talent,
+            equipment
         });
 
         const newBuild = await build.save();
@@ -54,7 +53,7 @@ exports.createBuild = async (req, res) => {
     }
 };
 
-// UPDATE (PATCH) - Atualizar uma build
+// UPDATE (PATCH) - Atualizar uma build  //pesquisado sobre alteração de campos 
 exports.updateBuild = async (req, res) => {
     try {
         const build = await Build.findById(req.params.id);
@@ -69,18 +68,18 @@ exports.updateBuild = async (req, res) => {
         }
 
         const updatedBuild = await Build.findByIdAndUpdate(
-            req.params.id, 
-            req.body, 
+            req.params.id,
+            req.body,
             { new: true, runValidators: true }
         );
-        
+
         res.json(updatedBuild);
     } catch (error) {
         res.status(500).json({ error: 'Erro ao atualizar a build.', details: error.message });
     }
 };
 
-// DELETE - Deletar uma build
+// DELETE - Deletar uma build //pesquisado sobre remoção de documentos
 exports.deleteBuild = async (req, res) => {
     try {
         const build = await Build.findById(req.params.id);

@@ -3,19 +3,19 @@ const express = require('express');
 const cors = require('cors'); // 1. Importe o pacote cors
 const BDconexao = require('./configuracao/DB.js');
 
-// conectando no mongo
+// conectando no mongo utilizando o /configuracao/DB.js
 BDconexao();
 
-// importando os arquivos de rotas
+// importando os arquivos de rotas /rotas/buildRotas.js
 const buildRoutes = require('./rotas/buildRotas.js');
 
 const app = express();
 
-// --- MIDDLEWARE ---
-app.use(cors()); // 2. Habilite o CORS para todas as rotas (Deve estar ANTES das rotas)
+
+app.use(cors()); // Habilite o CORS para todas as rotas 
 app.use(express.json());
 
-// --- ROTAS DA APLICAÇÃO ---
+
 // Rotas da API
 app.use('/api/builds', buildRoutes);
 

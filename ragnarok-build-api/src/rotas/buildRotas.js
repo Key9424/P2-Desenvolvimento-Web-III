@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const buildControlador = require('../controladores/buildControlador');
 
-// Rotas públicas (SEM autenticação)
+// Rotas públicas 
 router.get('/', buildControlador.getAllBuilds);
 router.get('/:id', buildControlador.getBuildById);
 router.post('/', buildControlador.createBuild);
