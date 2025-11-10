@@ -8,8 +8,6 @@ BDconexao();
 
 // importando os arquivos de rotas
 const buildRoutes = require('./rotas/buildRotas.js');
-const equipmentRoutes = require('./rotas/equipmentRotas.js');
-const userRotas = require('./rotas/userRotas.js');
 
 const app = express();
 
@@ -20,8 +18,6 @@ app.use(express.json());
 // --- ROTAS DA APLICAÇÃO ---
 // Rotas da API
 app.use('/api/builds', buildRoutes);
-app.use('/api/equipment', equipmentRoutes);
-app.use('/api/users', userRotas);
 
 // portas do servidor
 const PORT = process.env.PORT || 3000;
