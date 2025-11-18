@@ -1,6 +1,10 @@
 //Criação da conexão com o banco de dados MongoDB usando Mongoose
 
-require('dotenv').config();
+require('dotenv').config();  // tem que criar o arquivo .env
+
+// usuario de teste :
+// 
+
 const mongoose = require('mongoose');
 
 const connectDB = async () => {

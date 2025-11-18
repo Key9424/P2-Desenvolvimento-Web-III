@@ -1,3 +1,99 @@
+//import React, { useState, useEffect } from 'react';
+//import axios from 'axios';
+//import './App.css';
+//import BuildForm from "./componentes/BuildForm";
+//import BuildList from "./componentes/BuildList";
+//
+//function App() {
+//  const [builds, setBuilds] = useState([]);
+//  const [showForm, setShowForm] = useState(false);
+//  const [currentBuild, setCurrentBuild] = useState(null);
+//  const [expandedBuild, setExpandedBuild] = useState(null);
+//  const [formData, setFormData] = useState({
+//    name: '',
+//    description: '',
+//    job: '',
+//    level: 99,
+//    jobLevel: 70,
+//    stats: { str: 1, agi: 1, vit: 1, int: 1, dex: 1, luk: 1 },
+//    talent: { pow: 0, sta: 0, wis: 0, spi: 0, con: 0, crt: 0 }
+//  });
+//
+//  const API_URL = 'http://localhost:3000/api/builds';
+//
+//  useEffect(() => {
+//    loadBuilds();
+//  }, []);
+//
+//  const loadBuilds = async () => {
+//    try {
+//      const response = await axios.get(API_URL);
+//      setBuilds(response.data);
+//    } catch (error) {
+//      console.error(error);
+//      alert('Erro ao carregar builds.');
+//    }
+//  };
+//
+//  const toggleExpand = (buildId) => {
+//    setExpandedBuild(expandedBuild === buildId ? null : buildId);
+//  };
+//
+//  const handleEdit = (build) => {
+//    setCurrentBuild(build);
+//    setFormData({
+//      name: build.name,
+//      description: build.description || '',
+//      job: build.job,
+//      level: build.level,
+//      jobLevel: build.jobLevel,
+//      stats: build.stats || { str: 1, agi: 1, vit: 1, int: 1, dex: 1, luk: 1 },
+//      talent: build.talent || { pow: 0, sta: 0, wis: 0, spi: 0, con: 0, crt: 0 }
+//    });
+//    setShowForm(true);
+//  };
+//
+//  const handleDelete = async (id, name) => {
+//    if (window.confirm(`Tem certeza que deseja deletar a build "${name}"?`)) {
+//      try {
+//        await axios.delete(`${API_URL}/${id}`);
+//        alert('Build deletada com sucesso!');
+//        loadBuilds();
+//      } catch (error) {
+//        console.error('Erro ao deletar build:', error);
+//        alert('Erro ao deletar build.');
+//      }
+//    }
+//  };
+//
+//  return (
+//    <div className="App">
+//      {showForm ? (
+//        <BuildForm
+//          formData={formData}
+//          currentBuild={currentBuild}
+//          setFormData={setFormData}
+//          setCurrentBuild={setCurrentBuild}
+//          setShowForm={setShowForm}
+//          loadBuilds={loadBuilds}
+//        />
+//      ) : (
+//        <BuildList
+//          builds={builds}
+//          expandedBuild={expandedBuild}
+//          toggleExpand={toggleExpand}
+//          handleEdit={handleEdit}
+//          handleDelete={handleDelete}
+//        />
+//      )}
+//    </div>
+//  );
+//}
+//
+//export default App;
+
+
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './App.css';
@@ -26,9 +122,9 @@ function App() {
 
   const loadBuilds = async () => {
     try {
-      console.log('Tentando conectar em:', API_URL); // Debug
+      console.log('Tentando conectar em:', API_URL); 
       const response = await axios.get(API_URL);
-      console.log('Builds carregadas:', response.data); // Debug
+      console.log('Builds carregadas:', response.data);
       setBuilds(response.data);
     } catch (error) {
       console.error('Erro detalhado:', error.response || error); // Mais detalhes
