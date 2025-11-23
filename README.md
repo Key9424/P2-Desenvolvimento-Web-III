@@ -123,7 +123,7 @@ Exemplo de payload (POST/PATCH):
 
 Não há testes automatizados incluídos neste projeto por padrão. Você pode adicionar testes no backend (e.g., Jest) ou no frontend (React Testing Library).
 
-## Próximos passos sugeridos
+## Próximos passos sugeridos para updates futuros
 
 - Adicionar autenticação (JWT) para endpoints privados.
 - Validar schema das builds com uma biblioteca (Joi / celebrate) no backend.
@@ -136,4 +136,4 @@ Pull requests são bem-vindos. Abra uma issue antes de mudanças grandes.
 
 ## Licença
 
-Licença: MIT (ou ajuste conforme sua preferência).
+Licença: MIT
