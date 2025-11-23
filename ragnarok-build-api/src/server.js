@@ -1,6 +1,6 @@
 require('dotenv').config(); // carregar a varialvel do .env
 const express = require('express');
-const cors = require('cors'); // 1. Importe o pacote cors
+const cors = require('cors'); // Importando o pacote cors
 const BDconexao = require('./configuracao/DB.js');
 
 // conectando no mongo utilizando o /configuracao/DB.js

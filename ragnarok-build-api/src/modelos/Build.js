@@ -28,7 +28,7 @@ const buildSchema = new mongoose.Schema({
         crt: { type: Number, default: 0 },
     },
 
-    // Equipamentos da build //UPDATE futuro para o projeto 
+    // Equipamentos da build //Update futuro para o projeto, pois precisa do banco de dados de itens
     equipment: {
         weapon: { type: Number },
         shield: { type: Number },
@@ -42,11 +42,11 @@ const buildSchema = new mongoose.Schema({
         accessory2: { type: Number },
     },
 
-    // Criador da build (opcional)
+    // Criador da build deixando como anonymous por padrão para futuras implementações de autenticação
     author: {
         createdBy: { type: String, default: 'anonymous' }
     }
-}, { timestamps: true });
+}, { timestamps: true }); // Adiciona createdAt e updatedAt automaticamente 
 
 const Build = mongoose.model('Build', buildSchema);
 

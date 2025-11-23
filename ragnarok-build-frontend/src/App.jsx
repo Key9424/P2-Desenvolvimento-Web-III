@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './App.css';
-
+import BuildForm from './components/BuildForm';
+// componente principal da aplicação
 function App() {
   const [builds, setBuilds] = useState([]);
   const [showForm, setShowForm] = useState(false);
@@ -17,13 +18,13 @@ function App() {
     talent: { pow: 0, sta: 0, wis: 0, spi: 0, con: 0, crt: 0 }
   });
 
-  // URL para a API // executar sempre o API primeiro
+  // URL para a API // executar sempre o API primeiro antes do frontend
   const API_URL = 'http://localhost:3000/api/builds';
 
   useEffect(() => {
     loadBuilds();
   }, []);
-
+  // função para carregar todas as builds da API
   const loadBuilds = async () => {
     try {
       console.log('Tentando conectar em:', API_URL); // Debug
@@ -32,7 +33,7 @@ function App() {
       setBuilds(response.data);
     } catch (error) {
       console.error('Erro detalhado:', error.response || error); // Mais detalhes
-
+      //  mensagens de erro mais específicas
       if (error.code === 'ERR_NETWORK') {
         alert('Erro de rede: Verifique se o servidor backend está rodando na porta 3000');
       } else if (error.response) {
@@ -42,7 +43,7 @@ function App() {
       }
     }
   };
-
+  // função para criar ou atualizar uma build
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -60,7 +61,7 @@ function App() {
       alert('Erro ao salvar build.');
     }
   };
-
+  // função para editar uma build existente
   const handleEdit = (build) => {
     setCurrentBuild(build);
     setFormData({
@@ -74,7 +75,7 @@ function App() {
     });
     setShowForm(true);
   };
-
+  // função para deletar uma build
   const handleDelete = async (id, name) => {
     if (window.confirm(`Tem certeza que deseja deletar a build "${name}"?`)) {
       try {
@@ -87,7 +88,7 @@ function App() {
       }
     }
   };
-
+  // função para resetar o formulário
   const resetForm = () => {
     setFormData({
       name: '',
@@ -101,30 +102,30 @@ function App() {
     setCurrentBuild(null);
     setShowForm(false);
   };
-
+  // funções para manipular mudanças no formulário
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
-
+  // funções específicas para stats e talents
   const handleStatChange = (stat, value) => {
     setFormData(prev => ({
       ...prev,
       stats: { ...prev.stats, [stat]: parseInt(value) || 1 }
     }));
   };
-
+  // funções específicas para stats e talents
   const handleTalentChange = (talent, value) => {
     setFormData(prev => ({
       ...prev,
       talent: { ...prev.talent, [talent]: parseInt(value) || 0 }
     }));
   };
-
+  // função para expandir ou recolher detalhes da build
   const toggleExpand = (buildId) => {
     setExpandedBuild(expandedBuild === buildId ? null : buildId);
   };
-
+  // renderização do componente
   return (
     <div className="App">
       <header className="app-header">
@@ -141,109 +142,15 @@ function App() {
 
       <main className="app-main">
         {showForm ? (
-          <div className="form-container">
-            <h2>{currentBuild ? 'Editar Build' : 'Criar Nova Build'}</h2>
-            <form onSubmit={handleSubmit} className="build-form">
-              <div className="form-group">
-                <label>Nome da Build *</label>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div>
-
-              <div className="form-group">
-                <label>Descrição</label>
-                <textarea
-                  name="description"
-                  value={formData.description}
-                  onChange={handleInputChange}
-                  rows="3"
-                />
-              </div>
-
-              <div className="form-row">
-                <div className="form-group">
-                  <label>Classe *</label>
-                  <input
-                    type="text"
-                    name="job"
-                    value={formData.job}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label>Level</label>
-                  <input
-                    type="number"
-                    name="level"
-                    value={formData.level}
-                    onChange={handleInputChange}
-                    min="1"
-                    max="200"
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label>Job Level</label>
-                  <input
-                    type="number"
-                    name="jobLevel"
-                    value={formData.jobLevel}
-                    onChange={handleInputChange}
-                    min="1"
-                    max="70"
-                  />
-                </div>
-              </div>
-
-              <h3>Atributos (Stats)</h3>
-              <div className="stats-grid">
-                {Object.keys(formData.stats).map(stat => (
-                  <div key={stat} className="stat-item">
-                    <label>{stat.toUpperCase()}</label>
-                    <input
-                      type="number"
-                      value={formData.stats[stat]}
-                      onChange={(e) => handleStatChange(stat, e.target.value)}
-                      min="1"
-                      max="130"
-                    />
-                  </div>
-                ))}
-              </div>
-
-              <h3>Talentos (Talent)</h3>
-              <div className="stats-grid">
-                {Object.keys(formData.talent).map(talent => (
-                  <div key={talent} className="stat-item">
-                    <label>{talent.toUpperCase()}</label>
-                    <input
-                      type="number"
-                      value={formData.talent[talent]}
-                      onChange={(e) => handleTalentChange(talent, e.target.value)}
-                      min="0"
-                      max="100"
-                    />
-                  </div>
-                ))}
-              </div>
-
-              <div className="form-actions">
-                <button type="submit" className="btn btn-success">
-                  {currentBuild ? 'Atualizar' : 'Criar'} Build
-                </button>
-                <button type="button" className="btn btn-secondary" onClick={resetForm}>
-                  Cancelar
-                </button>
-              </div>
-            </form>
-          </div>
+          <BuildForm
+            formData={formData}
+            onInputChange={handleInputChange}
+            onStatChange={handleStatChange}
+            onTalentChange={handleTalentChange}
+            onSubmit={handleSubmit}
+            onCancel={resetForm}
+            currentBuild={currentBuild}
+          />
         ) : (
           <div className="builds-container">
             <h2>Todas as Builds ({builds.length})</h2>

@@ -12,7 +12,7 @@ exports.getAllBuilds = async (req, res) => {
     }
 };
 
-// READ (GET) - Uma build por ID
+// READ (GET) - Uma build por ID // nao foi implementado no front ainda
 exports.getBuildById = async (req, res) => {
     try {
         const build = await Build.findById(req.params.id);
@@ -53,7 +53,7 @@ exports.createBuild = async (req, res) => {
     }
 };
 
-// UPDATE (PATCH) - Atualizar uma build  //pesquisado sobre alteração de campos 
+// UPDATE (PATCH) - Atualizar uma build  // Pesquisado e aplicado o uso de findByIdAndUpdate com new: true para retornar o documento atualizado
 exports.updateBuild = async (req, res) => {
     try {
         const build = await Build.findById(req.params.id);
@@ -66,20 +66,20 @@ exports.updateBuild = async (req, res) => {
         if (req.body.author) {
             delete req.body.author;
         }
-
+        //  Atualiza a build com os dados fornecidos
         const updatedBuild = await Build.findByIdAndUpdate(
             req.params.id,
             req.body,
             { new: true, runValidators: true }
         );
-
+        // Retorna a build atualizada
         res.json(updatedBuild);
     } catch (error) {
         res.status(500).json({ error: 'Erro ao atualizar a build.', details: error.message });
     }
 };
 
-// DELETE - Deletar uma build //pesquisado sobre remoção de documentos
+// DELETE - Deletar uma build // Pesquisado e aplicado o uso de findByIdAndDelete para deletar a build pelo ID 
 exports.deleteBuild = async (req, res) => {
     try {
         const build = await Build.findById(req.params.id);
